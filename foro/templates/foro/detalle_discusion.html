@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{{discusion.titulo}}{% endblock %}
+
+{% block content %}
+
+
+{{discusion.titulo}}
+{{discusion.fecha_subida}}
+
+
+{{discusion.respuestas.all}}
+
+{% for r in discusion.respuestas.all %}
+    <p>{{r.user.username}}</p>
+{% endfor %}
+
+
+<form method="post">
+    {% csrf_token %}
+    <input class="form-control w-50 d-inline" type="text" placeholder="Envie un mensaje">
+    <button class="btn btn-primary btn-sm">Enviar</button>
+</form>
+
+
+{% endblock %}

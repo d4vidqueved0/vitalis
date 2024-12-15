@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Foro{% endblock %}
+
+{% block content %}
+
+<h1>Foro</h1>
+<h2>Discusiones</h2>
+
+<a href="{% url 'foro:agregar_discusion' %}" class="btn btn-success">Agregar</a>
+
+{% if discusiones %}
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Titulo</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Respuestas</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+    {% for d in discusiones %}
+    <tr>
+        <th scope="row">{{ d.titulo }}</th>
+        <td>{{ d.fecha_subida }}</td>
+        <td>
+            {% if d.respuestas.all.count > 0 %}
+              
+                
+                  {{ d.respuestas.all.count }}  <!-- Mostrar cada respuesta -->
+              
+              
+            {% else %}
+                <p>No hay respuestas aún.</p>
+            {% endif %}
+        </td>
+        <td><a class="btn btn-primary" href="{% url 'foro:detalle_discusion' d.pk %}">Ver más</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
+
+{% endblock %}
